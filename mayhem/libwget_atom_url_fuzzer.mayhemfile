@@ -1,0 +1,4 @@
+project: PROJECT
+target: libwget_atom_url_fuzzer
+cmds:
+- cmd: /out/libwget_atom_url_fuzzer
