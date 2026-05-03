@@ -15,10 +15,10 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update && apt-get install -y make pkg-config gettext autogen autopoint autoconf automake libtool texinfo flex bison gettext gengetopt curl gperf wget python lzip rsync libmicrohttpd-dev gtk-doc-tools libtasn1-bin
+RUN apt-get update && apt-get install -y make pkg-config gettext autogen autopoint autoconf automake libtool texinfo flex bison gettext gengetopt curl gperf wget python3 lzip rsync libmicrohttpd-dev gtk-doc-tools libtasn1-bin
 
-ENV GNULIB_TOOL $SRC/gnulib/gnulib-tool
-RUN git clone git://git.savannah.gnu.org/gnulib.git
+ENV GNULIB_TOOL=$SRC/gnulib/gnulib-tool
+RUN git clone --depth=1 https://git.savannah.gnu.org/git/gnulib.git
 RUN git clone --depth=1 --recursive https://git.savannah.gnu.org/git/libunistring.git
 RUN git clone --depth=1 --recursive https://gitlab.com/libidn/libidn2.git
 RUN git clone --depth=1 --recursive https://github.com/rockdaboot/libpsl.git
@@ -29,7 +29,7 @@ RUN wget -O- https://ftp.gnu.org/pub/gnu/libmicrohttpd/libmicrohttpd-latest.tar.
 COPY . wget2
 RUN rm -rf wget2/mayhem
 
-WORKDIR wget2
+WORKDIR $SRC/wget2
 COPY mayhem/build.sh $SRC/
 
 ENV FUZZING_LANGUAGE=c++
