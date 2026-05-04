@@ -14,8 +14,8 @@
 #
 ################################################################################
 
-FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update && apt-get install -y make pkg-config gettext autogen autopoint autoconf automake libtool texinfo flex bison gettext gengetopt curl gperf wget python3 lzip rsync libmicrohttpd-dev gtk-doc-tools libtasn1-bin
+FROM gcr.io/oss-fuzz-base/base-builder:ubuntu-24-04
+RUN sed -i "s|http://archive.ubuntu.com/ubuntu|http://us.archive.ubuntu.com/ubuntu|g; s|http://security.ubuntu.com/ubuntu|http://us.archive.ubuntu.com/ubuntu|g" /etc/apt/sources.list && apt-get update && apt-get install -y make pkg-config gettext autogen autopoint autoconf automake libtool texinfo flex bison gettext gengetopt curl gperf wget python3 lzip rsync libmicrohttpd-dev gtk-doc-tools libtasn1-bin
 
 ENV GNULIB_TOOL=$SRC/gnulib/gnulib-tool
 RUN git clone --depth=1 https://git.savannah.gnu.org/git/gnulib.git
